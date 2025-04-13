@@ -38,13 +38,13 @@ if defined?(PluginManager) && !PluginManager.installed?("Diploma")
   # Register it on PluginManager (and also in credits).
   PluginManager.register({                                                 
     :name    => "Diploma",                                        
-    :version => "1.1",                                                     
+    :version => "1.1.1",                                                     
     :link    => "https://www.pokecommunity.com/showthread.php?t=286554",
     :credits => "FL"
   })
   # This code is an equivalent of a plugin with meta.txt as:
   # Name      = Diploma
-  # Version   = 1.1
+  # Version   = 1.1.1
   # Website   = https://www.pokecommunity.com/showthread.php?t=286554
   # Credits   = FL
 end
@@ -85,10 +85,15 @@ class DiplomaScene # The scene class
     # useless, but if you want to change the text without remake the overlay,
     # then this will be necessary.
     overlay.clear 
-    # I am using the _INTL for better parameters (like $Trainer.name) 
+    # Below code line is only used to make the script works in Essentials v19 or
+    # lower, you can even remove it in v20 or higher. It adds $Trainer (v19
+    # variable) value in $player (newer variable) if $Trainer exists and
+    # $player doesn't exist.
+    $player = $Trainer if !$player && $Trainer
+    # I am using the _INTL for better parameters (like $player.name) 
     # manipulation and to allow text translation (made in Intl_Messages script
     # section).
-    player_name = _INTL("Player: {1}", $Trainer.name)
+    player_name = _INTL("Player: {1}", $player.name)
     # The margins sizes for each side.
     margin_left = 112
     margin_right = 96
